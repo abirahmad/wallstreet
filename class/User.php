@@ -71,5 +71,17 @@ class User extends Dbconfig {
 			header("Location: index.php");
 		}
 	}
+
+	public function totalUsers ($status) {
+		$query = '';
+		if($status) {
+			$query = " AND status = '".$status."'";
+		}
+		$sqlQuery = "SELECT * FROM ".$this->userTable." 
+		WHERE id !='".$_SESSION["adminUserid"]."' $query";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		$numRows = mysqli_num_rows($result);
+		return $numRows;
+	}
 }
 ?>

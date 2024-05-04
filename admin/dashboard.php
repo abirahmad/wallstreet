@@ -14,7 +14,16 @@ include('include/header.php');
 		<a href="#"><strong><span class="fa fa-dashboard"></span> My Dashboard</strong></a>
 		<hr>
 		<div class="row">
-			<h1>Dashboard</h1>
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-body bk-primary text-light">
+						<div class="stat-panel text-center">
+							<div class="stat-panel-number h1 "><?php echo $user->totalUsers(""); ?></div>
+							<div class="stat-panel-title text-uppercase">Total Users</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
