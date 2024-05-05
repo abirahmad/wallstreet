@@ -201,4 +201,77 @@ class User extends Dbconfig
 		);
 		echo json_encode($output);
 	}
+
+	public function addUser()
+	{
+		if ($_POST["email"]) {
+			$authtoken = $this->getAuthtoken($_POST['email']);
+			$insertQuery = "INSERT INTO " . $this->userTable . "(first_name, last_name, email, gender, password, mobile, designation, type, status, authtoken) 
+				VALUES ('" . $_POST["firstname"] . "', '" . $_POST["lastname"] . "', '" . $_POST["email"] . "', '" . $_POST["gender"] . "', '" . md5($_POST["password"]) . "', '" . $_POST["mobile"] . "', '" . $_POST["designation"] . "', '" . $_POST['user_type'] . "', 'active', '" . $authtoken . "')";
+			$userSaved = mysqli_query($this->dbConnect, $insertQuery);
+		}
+	}
+
+	public function updateUser()
+	{
+		if ($_POST['userid']) {
+			$updateQuery = "UPDATE " . $this->userTable . " 
+			SET first_name = '" . $_POST["firstname"] . "', last_name = '" . $_POST["lastname"] . "', email = '" . $_POST["email"] . "', mobile = '" . $_POST["mobile"] . "' , designation = '" . $_POST["designation"] . "', gender = '" . $_POST["gender"] . "', status = '" . $_POST["status"] . "', type = '" . $_POST['user_type'] . "'
+			WHERE id ='" . $_POST["userid"] . "'";
+			$isUpdated = mysqli_query($this->dbConnect, $updateQuery);
+		}
+	}
+
+	public function getUser(){
+		$sqlQuery = "
+			SELECT * FROM ".$this->userTable." 
+			WHERE id = '".$_POST["userid"]."'";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);	
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		echo json_encode($row);
+	}
+
+	public function deleteUser(){
+		if($_POST["userid"]) {
+			$sqlUpdate = "
+				DELETE FROM ".$this->userTable."
+				WHERE id = '".$_POST["userid"]."'";		
+			mysqli_query($this->dbConnect, $sqlUpdate);		
+		}
+	}
+
+	public function adminDetails () {
+		$sqlQuery = "SELECT * FROM ".$this->userTable." 
+			WHERE id ='".$_SESSION["adminUserid"]."'";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);	
+		$userDetails = mysqli_fetch_assoc($result);
+		return $userDetails;
+	}
+
+	public function userDetails () {
+		$sqlQuery = "SELECT * FROM ".$this->userTable." 
+			WHERE id ='".$_SESSION["userid"]."'";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);	
+		$userDetails = mysqli_fetch_assoc($result);
+		return $userDetails;
+	}
+	
+	public function editAccount () {
+		$message = '';
+		$updatePassword = '';
+		if(!empty($_POST["passwd"]) && $_POST["passwd"] != '' && $_POST["passwd"] != $_POST["cpasswd"]) {
+			$message = "Confirm passwords do not match.";
+		} else if(!empty($_POST["passwd"]) && $_POST["passwd"] != '' && $_POST["passwd"] == $_POST["cpasswd"]) {
+			$updatePassword = ", password='".md5($_POST["passwd"])."' ";
+		}		
+		$updateQuery = "UPDATE ".$this->userTable." 
+			SET first_name = '".$_POST["firstname"]."', last_name = '".$_POST["lastname"]."', email = '".$_POST["email"]."', mobile = '".$_POST["mobile"]."' , designation = '".$_POST["designation"]."', gender = '".$_POST["gender"]."' $updatePassword
+			WHERE id ='".$_SESSION["userid"]."'";
+		$isUpdated = mysqli_query($this->dbConnect, $updateQuery);	
+		if($isUpdated) {
+			$_SESSION["name"] = $_POST['firstname']." ".$_POST['lastname'];
+			$message = "Account details saved.";
+		}
+		return $message;
+	}
 }

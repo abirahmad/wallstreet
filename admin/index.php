@@ -33,8 +33,8 @@ include('../include/header.php');
 					</div>	
 					<div style="margin-top:10px" class="form-group">                               
 						<div class="col-sm-12 controls">
-						User: abir@admin.com<br>
-						password:123				  
+						User: admin@gmail.com<br>
+						password:123456				  
 						</div>						
 					</div>	
 				</form>   
