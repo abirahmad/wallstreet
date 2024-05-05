@@ -26,7 +26,14 @@ $this->password = 'root';
 $this->dbName = 'wsd';
 insert this
 ```
+
 hit this link
 http://localhost/wallstreet/migration.php from your browser
 ```
+normal user-login:http://localhost/wallstreet/
+admin user-login:http://localhost/wallstreet/admin/
+
+hit these links for different logins
+
+
 
