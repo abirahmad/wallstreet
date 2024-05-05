@@ -110,8 +110,11 @@ class User extends Dbconfig
 			}
 			$sqlQuery = "SELECT * FROM " . $this->userTable . " 
 				WHERE email='" . $loginId . "' AND password='" . $password . "' AND status = 'active'";
+			
 			$resultSet = mysqli_query($this->dbConnect, $sqlQuery);
+			
 			$isValidLogin = mysqli_num_rows($resultSet);
+			
 			if ($isValidLogin) {
 				if (!empty($_POST["remember"]) && $_POST["remember"] != '') {
 					setcookie("loginId", $loginId, time() + (10 * 365 * 24 * 60 * 60));
@@ -125,11 +128,17 @@ class User extends Dbconfig
 				$_SESSION["name"] = $userDetails['first_name'] . " " . $userDetails['last_name'];
 				header("location: index.php");
 			} else {
-				$errorMessage = "Invalid login!";
+				$errorMessage = "Invalid login! Or might be pending";
 			}
 		} else if (!empty($_POST["loginId"])) {
 			$errorMessage = "Enter Both user and password!";
 		}
 		return $errorMessage;
+	}
+
+	public function getAuthtoken($email) {
+		$code = md5(889966);
+		$authtoken = $code."".md5($email);
+		return $authtoken;
 	}
 }
