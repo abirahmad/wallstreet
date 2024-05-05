@@ -2,7 +2,13 @@
 
 ### Setup
 
+
 ```bash
+### Prerequirements
+PHP:8.1
+Apache server
+Mysql
+
 git clone https://github.com/abirahmad/wallstreet.git
 cd wallstreet
 
