@@ -36,8 +36,8 @@ include('include/header.php');
 					<th>Email</th>
 					<th>Mobile</th>
 					<th>Role</th>					
-					<th></th>
-					<th></th>
+					<th>Status</th>
+					<th class="col-2">Action</th>
 					<th></th>
 				</tr>
 			</thead>
