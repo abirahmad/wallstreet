@@ -10,7 +10,7 @@ include('include/header.php');
 	<h2>Example: User Management System with PHP & MySQL</h2>	
 	<?php include('menu.php');?>
 	<div class="table-responsive">	
-	You're welcome!
+	User Dashboard!
 	</div>
 </div>	
 <?php include('include/footer.php');?>
