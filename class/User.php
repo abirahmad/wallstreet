@@ -1,7 +1,7 @@
 <?php
 session_start();
-require('./include/config.php');
-class User extends Dbconfig
+// require('./include/config.php');
+class User
 {
 	protected $hostName;
 	protected $userName;
@@ -13,7 +13,7 @@ class User extends Dbconfig
 	public function __construct()
 	{
 		if ($this->dbConnect) {
-			$database = new dbConfig();
+			// $database = new dbConfig();
 			$this->hostName = 'localhost';
 			$this->userName = 'root';
 			$this->password = 'root';
