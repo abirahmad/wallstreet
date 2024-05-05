@@ -1,4 +1,4 @@
-## Akij Takaful REST API
+## User Management Demo in Raw PHP
 
 ### Setup
 
